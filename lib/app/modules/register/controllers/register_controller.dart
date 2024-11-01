@@ -1,33 +1,37 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import '../../login/views/login_view.dart'; // Pastikan Anda sudah mengimport LoginView
+import 'package:myapp/app/modules/login/views/login_view.dart';
 
 class RegisterController extends GetxController {
   var nama = ''.obs;
   var alamat = ''.obs;
   var noTelp = ''.obs;
-  var username = ''.obs;
+  var email = ''.obs; // Menambahkan email
   var password = ''.obs;
 
-  void register() {
+  Future<void> register() async {
+    try {
+      // Buat akun baru di Firebase Authentication menggunakan email
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email.value,
+        password: password.value,
+      );
 
-    Get.off(LoginView());
-    // if (nama.value.isNotEmpty &&
-    //     alamat.value.isNotEmpty &&
-    //     noTelp.value.isNotEmpty &&
-    //     username.value.isNotEmpty &&
-    //     password.value.isNotEmpty) {
-    //   // Logika register
-    //   print("Registrasi berhasil dengan data:");
-    //   print("Nama: ${nama.value}");
-    //   print("Alamat: ${alamat.value}");
-    //   print("No. Telp: ${noTelp.value}");
-    //   print("Username: ${username.value}");
-    //   print("Password: ${password.value}");
-      
-    //   // Setelah berhasil registrasi, arahkan ke halaman login
-    //   Get.off(LoginView()); // Hapus halaman Register dari stack dan arahkan ke halaman Login
-    // } else {
-    //   print("Semua field harus diisi");
-    // }
+      // Simpan data pengguna di Firestore dengan role "customer"
+      await FirebaseFirestore.instance.collection('users').doc(userCredential.user?.uid).set({
+        'nama': nama.value,
+        'alamat': alamat.value,
+        'noTelp': noTelp.value,
+        'email': email.value,
+        'role': 'customer', // Role default sebagai customer
+      });
+
+      // Arahkan pengguna ke halaman login setelah registrasi berhasil
+      Get.to(() => LoginView());
+    } catch (e) {
+      print("Register error: $e");
+      // Anda bisa menambahkan dialog untuk error handling
+    }
   }
 }

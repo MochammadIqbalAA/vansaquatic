@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../controllers/register_controller.dart';
 
 class RegisterView extends StatelessWidget {
+  // Inisialisasi controller
   final RegisterController controller = Get.put(RegisterController());
 
   @override
@@ -12,6 +13,15 @@ class RegisterView extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Register'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Get.back(); // Kembali ke halaman sebelumnya (LoginView)
+          },
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: ConstrainedBox(
@@ -32,7 +42,7 @@ class RegisterView extends StatelessWidget {
                         transform: Matrix4.rotationY(3.14159), // Membalik logo secara horizontal
                         alignment: Alignment.center,
                         child: Image.asset(
-                          'lib/app/assets/logo-polos.png', // Path logo Anda
+                          'assets/logo.jpg', // Path logo Anda
                           height: screenHeight * 0.1, // Ukuran dinamis
                         ),
                       ),
@@ -60,11 +70,11 @@ class RegisterView extends StatelessWidget {
                     icon: Icons.phone,
                   ),
                   SizedBox(height: screenHeight * 0.03),
-                  // Username TextField
+                  // Email TextField
                   _buildTextField(
-                    label: 'Username',
-                    onChanged: (value) => controller.username.value = value,
-                    icon: Icons.person,
+                    label: 'Email',
+                    onChanged: (value) => controller.email.value = value,
+                    icon: Icons.email,
                   ),
                   SizedBox(height: screenHeight * 0.03),
                   // Password TextField
@@ -79,7 +89,7 @@ class RegisterView extends StatelessWidget {
                   Center(
                     child: ElevatedButton(
                       onPressed: () {
-                        controller.register();
+                        controller.register(); // Panggil fungsi register
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
@@ -103,7 +113,7 @@ class RegisterView extends StatelessWidget {
                     child: Opacity(
                       opacity: 0.35, // Opacity 35%
                       child: Image.asset(
-                        'lib/app/assets/logo-polos.png', // Path logo Anda
+                        'assets/logo.jpg', // Path logo Anda
                         height: screenHeight * 0.1, // Ukuran dinamis
                       ),
                     ),
@@ -147,8 +157,8 @@ class RegisterView extends StatelessWidget {
             decoration: InputDecoration(
               hintText: '$label ...',
               border: InputBorder.none,
-              prefixIcon: Icon(icon, size: 24.0), // Sesuaikan ukuran icon
-              contentPadding: EdgeInsets.symmetric(vertical: 15.0), // Sesuaikan padding
+              prefixIcon: Icon(icon, size: 24.0),
+              contentPadding: EdgeInsets.symmetric(vertical: 15.0),
             ),
           ),
         ),

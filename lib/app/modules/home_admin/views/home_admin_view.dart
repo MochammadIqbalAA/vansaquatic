@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'product_screen.dart';
 // import 'account_screen.dart';
 // import 'order_screen.dart';
@@ -16,6 +17,12 @@ class _HomeAdminViewState extends State<HomeAdminView> {
       _selectedMenu = menu;
       Navigator.pop(context); // Menutup drawer saat memilih menu
     });
+  }
+
+  // Fungsi logout
+  void _logout() async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.of(context).pushReplacementNamed('/login'); // Arahkan ke halaman login
   }
 
   @override
@@ -39,6 +46,18 @@ class _HomeAdminViewState extends State<HomeAdminView> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Admin Home'),
+        actions: [
+          TextButton(
+            onPressed: _logout, // Panggil fungsi logout
+            child: Text(
+              'Logout',
+              style: TextStyle(
+                color: Colors.red, // Warna merah pada font
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ],
       ),
       drawer: Drawer(
         child: ListView(

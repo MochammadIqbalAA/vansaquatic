@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/login_controller.dart';
-import 'package:myapp/app/modules/home_admin/views/home_admin_view.dart';
 
 class LoginView extends StatelessWidget {
   // Inisialisasi controller
@@ -19,31 +18,29 @@ class LoginView extends StatelessWidget {
               children: [
                 // Logo
                 Container(
-                  height: 150, // Atur tinggi logo
-                  width: 150, // Atur lebar logo
+                  height: 150,
+                  width: 150,
                   child: Image.asset(
                     'assets/logo.jpg', // Path yang benar ke file logo
-                    fit: BoxFit.cover, // Mengatur bagaimana gambar harus diisi
+                    fit: BoxFit.cover,
                   ),
                 ),
-
                 SizedBox(height: 40),
                 // Username TextField
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Username', style: TextStyle(fontSize: 16)),
+                    Text('Email', style: TextStyle(fontSize: 16)),
                     SizedBox(height: 8),
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.grey[200], // Warna latar belakang
-                        borderRadius:
-                            BorderRadius.circular(14.0), // Ujung tumpul
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(14.0),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black26, // Warna shadow
-                            blurRadius: 10.0, // Radius blur shadow
-                            offset: Offset(0, 4), // Posisi shadow
+                            color: Colors.black26,
+                            blurRadius: 10.0,
+                            offset: Offset(0, 4),
                           ),
                         ],
                       ),
@@ -52,9 +49,9 @@ class LoginView extends StatelessWidget {
                           controller.username.value = value;
                         },
                         decoration: InputDecoration(
-                          hintText: 'Username ...',
-                          border: InputBorder.none, // Menghilangkan border
-                          prefixIcon: Icon(Icons.person),
+                          hintText: 'Email ...',
+                          border: InputBorder.none,
+                          prefixIcon: Icon(Icons.email),
                         ),
                       ),
                     ),
@@ -69,14 +66,13 @@ class LoginView extends StatelessWidget {
                     SizedBox(height: 8),
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.grey[200], // Warna latar belakang
-                        borderRadius:
-                            BorderRadius.circular(14.0), // Ujung tumpul
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(14.0),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black26, // Warna shadow
-                            blurRadius: 10.0, // Radius blur shadow
-                            offset: Offset(0, 4), // Posisi shadow
+                            color: Colors.black26,
+                            blurRadius: 10.0,
+                            offset: Offset(0, 4),
                           ),
                         ],
                       ),
@@ -87,7 +83,7 @@ class LoginView extends StatelessWidget {
                         obscureText: true,
                         decoration: InputDecoration(
                           hintText: 'Password ...',
-                          border: InputBorder.none, // Menghilangkan border
+                          border: InputBorder.none,
                           prefixIcon: Icon(Icons.lock),
                         ),
                       ),
@@ -97,19 +93,9 @@ class LoginView extends StatelessWidget {
                 SizedBox(height: 20),
                 // Login Button
                 ElevatedButton(
-                  // onPressed: () {
-                  //   Get.toNamed(
-                  //       '/home'); // Memanggil fungsi login dari LoginController
-                  // }
                   onPressed: () {
-                          // Navigasi ke halaman InboxView
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeAdminView()),
-                          );
-                        }
-                  ,
+                    controller.login(); // Panggil fungsi login
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     foregroundColor: Colors.white,
